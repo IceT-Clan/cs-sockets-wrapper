@@ -13,12 +13,12 @@ In Visual Studio:
 2. Choose `Add` -> `Add existing Project...`
 3. Open `cs-sockets-wrapper\Sockets.shproj`
 
-!(doc/add-to-sln.png)[Add existing Project]
+![Add existing Project](doc/add-to-sln.png)
 
 4. Right-Click on the Project wich needs to access the Sockets
 5. Choose `Add` -> `Reference...`
 
-!(doc/add-reference-via-project.png)[Add Reference via Project]
+![Add Reference via Project](doc/add-reference-via-project.png)
 
 or
 
@@ -26,10 +26,10 @@ or
 5. Right-Click on References
 6. Choose `Add Reference...`
 
-!(doc/add-reference-directly.png)[Add Refrence via directly]
+![Add Refrence via directly](doc/add-reference-directly.png)
 
 7. On the left panel choose `Shared projects` -> `Solution`
 8. Tick `Sockets`
 9. Press `OK`
 
-!(doc/add-shared-project.png)[Add shared project]
+![Add shared project](doc/add-shared-project.png)
