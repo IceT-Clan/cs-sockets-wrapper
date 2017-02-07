@@ -7,24 +7,20 @@ using System.Diagnostics;
 namespace Sockets {
     class ClientSocket {
         private Socket socket;
-        private int port;
         private IPAddress host;
         private IPEndPoint endPoint;
         private Encoding encoding = Encoding.UTF8;
-
         /// <summary>
         /// Create a new ClientSocket object
         /// </summary>
         /// <param name="host">A host to connect to</param>
         /// <param name="port">The port to connect to</param>
         public ClientSocket(string host, int port) {
-            //this.socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             this.socket = new Socket(SocketType.Stream, ProtocolType.Tcp);
-            this.port = port;
             if(!IPAddress.TryParse(host, out this.host)) {
                 this.host = Dns.GetHostEntry(host).AddressList[0];
             }
-            this.endPoint = new IPEndPoint (this.host,this.port);
+            this.endPoint = new IPEndPoint (this.host, port);
         }
         /// <summary>
         /// Create a ClientSocket object with another ClientSocket object
@@ -39,7 +35,6 @@ namespace Sockets {
         /// <returns>The succeess of the connection</returns>
         public bool Connect() {
             try {
-                //this.socket.Connect(this.host, this.port);
                 this.socket.Connect(this.endPoint);
             } catch (Exception e) {
                 Debug.WriteLine(e.Message);
@@ -66,6 +61,11 @@ namespace Sockets {
         /// </summary>
         /// <param name="data">The data to send</param>
         public void Write(string data) => this.socket.Send(this.encoding.GetBytes(data));
+        /// <summary>
+        /// Write a line to the socket
+        /// </summary>
+        /// <param name="data">The data to send</param>
+        public void WriteLine(string data) => Write(data + '\n');
         /// <summary>
         /// Read a single byte from the socket
         /// </summary>

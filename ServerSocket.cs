@@ -5,20 +5,16 @@ using System.Diagnostics;
 
 namespace Sockets {
     class ServerSocket {
-        private int port;
         private Socket serverSocket;
-
+        /// <summary>
+        /// Create a new ServerSocket object
+        /// </summary>
+        /// <param name="port">The port to bind</param>
         public ServerSocket(int port) {
-            this.port = port;
-            //this.serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             this.serverSocket = new Socket(SocketType.Stream, ProtocolType.Tcp);
-            IPHostEntry ipHostInfo = Dns.GetHostEntry("localhost");
-            IPAddress ipAddress = ipHostInfo.AddressList[1];
-            //IPEndPoint localEndPoint = new IPEndPoint(ipAddress, port);
-            IPEndPoint localEndPoint = new IPEndPoint(0, port);
 
             try {
-                this.serverSocket.Bind(localEndPoint);
+                this.serverSocket.Bind(new IPEndPoint(0, port));
                 this.serverSocket.Listen(10);
             } catch (Exception e) {
                 Debug.WriteLine(e.Message);
@@ -26,9 +22,14 @@ namespace Sockets {
                 return;
             }
         }
-
+        /// <summary>
+        /// Wait and accept any connection
+        /// </summary>
+        /// <returns>A Socket to connect to</returns>
         public Socket Accept() => this.serverSocket.Accept();
+        /// <summary>
+        /// Close the socket
+        /// </summary>
         public void Close() => this.serverSocket.Close();
-
     }
 }
